@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ public class Flycup : MonoBehaviour
     public HealthBar healthbar;
 
     //***************************************
-    public AdsManager ads;
+    //public AdsManager ads;
 
     void Start()
     {
@@ -33,21 +33,10 @@ public class Flycup : MonoBehaviour
     //***************************************
     void Update()
     {
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (gameManager.isCanvasOn == false)
-            {
-                Time.timeScale = 1;
-            }
-
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             // Jump
             rb.velocity = Vector2.up * velocity;
-
         }
 
 
@@ -60,16 +49,12 @@ public class Flycup : MonoBehaviour
             transform.Translate(Vector2.right * speed * Time.deltaTime);
         }
 
-
-
         if (timer > maxTime)
         {
             TakeDamage(0.8f);
             timer = 0;
         }
         timer += Time.deltaTime;
-
-
 
         if (currentHealth <= 0)
         {
@@ -78,14 +63,10 @@ public class Flycup : MonoBehaviour
             currentHealth = 100;
             Time.timeScale = 0;
         }
-
-
     }
     //***************************************
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-
         if (collision.gameObject.name == "BottomCollider")
         {
             gameManager.GameOver();
@@ -112,7 +93,6 @@ public class Flycup : MonoBehaviour
             if (currentHealth > 100)
             {
                 currentHealth = 100;
-
             }
         }
         if (collision.gameObject.tag == "Lemon")
@@ -123,7 +103,6 @@ public class Flycup : MonoBehaviour
             if (currentHealth > 100)
             {
                 currentHealth = 100;
-
             }
         }
         if (collision.gameObject.tag == "Peach")
@@ -134,7 +113,6 @@ public class Flycup : MonoBehaviour
             if (currentHealth > 100)
             {
                 currentHealth = 100;
-
             }
         }
         if (collision.gameObject.tag == "Coffee")
@@ -145,39 +123,31 @@ public class Flycup : MonoBehaviour
             if (currentHealth > 100)
             {
                 currentHealth = 100;
-
             }
-
-
         }
+        
         if (collision.gameObject.tag == "Rock")
         {
             TakeDamage(10f);
             Audio.RockSoundPlay();
         }
+        
         if (collision.gameObject.tag == "FireRock")
         {
             currentHealth = 0;
             gameManager.GameOver();
         }
-
-
-
     }
     //***************************************
     void TakeDamage(float damage)
     {
         currentHealth -= damage;
-
         healthbar.SetHealth(currentHealth);
-
     }
+    
     void TakeRecover(float recover)
     {
         currentHealth += recover;
-
         healthbar.SetHealth(currentHealth);
     }
-
-
 }
